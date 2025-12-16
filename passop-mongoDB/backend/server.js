@@ -32,7 +32,7 @@ app.get('/', async (req, res) => {
     const findResult = await collection.find({}).toArray();
     res.json(findResult);
 })
-o
+
 //save passwords
 app.post('/', async (req, res) => {
     console.log("Post request running at 3000")
