@@ -10,7 +10,8 @@ const Manager = () => {
     const [passwordArray, setpasswordArray] = useState([])
 
     const getPasswords = async () => {
-        let req = await fetch("http://localhost:3000/")
+        //let req = await fetch("http://localhost:3000/")    for local database
+        let req = await fetch("https://passop-backend-xyz.onrender.com/")   //for cloud
         let passwords = await req.json()
         console.log(passwords)
         setpasswordArray(passwords)
@@ -49,28 +50,28 @@ const Manager = () => {
         }
 
     }
-    const savePassword =async() => {
+    const savePassword = async () => {
 
         //if any such id exist in the database, delete it
-         await fetch ("http://localhost:3000/",{method: "DELETE", headers: {"Content-Type":"application/json"}, body: JSON.stringify({id:form.id})} )
+        await fetch("https://passop-backend-xyz.onrender.com/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: form.id }) })
 
         setpasswordArray([...passwordArray, { ...form, id: uuidv4() }])
         // localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]))
 
-        await fetch ("http://localhost:3000/",{method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({...form, id: uuidv4()})} )
-            
+        await fetch("https://passop-backend-xyz.onrender.com/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, id: uuidv4() }) })
+
         // console.log([...passwordArray, form])
         setform({ site: "", username: "", password: "" })
 
     }
-    const deletePassword =async (id) => {
+    const deletePassword = async (id) => {
         let c = confirm("Do you really want to delete this password?")
         if (c) {
             setpasswordArray(passwordArray.filter(item => item.id !== id))
-            
+
             // localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item => item.id !== id)))
 
-              let res = await fetch ("http://localhost:3000/",{method: "DELETE", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ id})} )
+            let res = await fetch("https://passop-backend-xyz.onrender.com/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) })
 
         }
 
@@ -78,7 +79,7 @@ const Manager = () => {
 
     const editPassword = (id) => {
         console.log("Editing Password", id)
-        setform({...passwordArray.filter(i => i.id === id)[0], id:id})
+        setform({ ...passwordArray.filter(i => i.id === id)[0], id: id })
         setpasswordArray(passwordArray.filter(item => item.id !== id))
 
     }
@@ -174,7 +175,7 @@ const Manager = () => {
                                         </td>
                                         <td className='text-center border border-white py-2'>
                                             <div className='flex items-center justify-center '>
-                                               <span> {"*".repeat(item.password.length)}</span>
+                                                <span> {"*".repeat(item.password.length)}</span>
                                                 <div className='size-7 cursor-pointer' onClick={() => { copyText(item.password) }}>
                                                     <lord-icon
                                                         src="https://cdn.lordicon.com/tamskqkf.json"
