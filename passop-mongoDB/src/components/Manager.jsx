@@ -11,7 +11,7 @@ const Manager = () => {
 
     const getPasswords = async () => {
         //let req = await fetch("http://localhost:3000/")    for local database
-        let req = await fetch("https://passop-backend-xyz.onrender.com/")   //for cloud
+        let req = await fetch("https://passop-backend-mohz.onrender.com/")   //for cloud
         let passwords = await req.json()
         console.log(passwords)
         setpasswordArray(passwords)
@@ -53,12 +53,12 @@ const Manager = () => {
     const savePassword = async () => {
 
         //if any such id exist in the database, delete it
-        await fetch("https://passop-backend-xyz.onrender.com/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: form.id }) })
+        await fetch("https://passop-backend-mohz.onrender.com/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: form.id }) })
 
         setpasswordArray([...passwordArray, { ...form, id: uuidv4() }])
         // localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]))
 
-        await fetch("https://passop-backend-xyz.onrender.com/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, id: uuidv4() }) })
+        await fetch("https://passop-backend-mohz.onrender.com/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, id: uuidv4() }) })
 
         // console.log([...passwordArray, form])
         setform({ site: "", username: "", password: "" })
@@ -71,7 +71,7 @@ const Manager = () => {
 
             // localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item => item.id !== id)))
 
-            let res = await fetch("https://passop-backend-xyz.onrender.com/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) })
+            let res = await fetch("https://passop-backend-mohz.onrender.com/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) })
 
         }
 
