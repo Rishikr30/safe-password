@@ -10,7 +10,9 @@ dotenv.config()
 // import { MongoClient } from 'mongodb'
 
 // Connection URL
-const url = 'mongodb://localhost:27017';
+// CORRECT for Render
+// It tries to find the cloud URL first. If not found, it falls back to localhost (for your laptop).
+const url = process.env.MONGO_URI || 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 
 // Database Name
@@ -30,7 +32,7 @@ app.get('/', async (req, res) => {
     const findResult = await collection.find({}).toArray();
     res.json(findResult);
 })
-
+o
 //save passwords
 app.post('/', async (req, res) => {
     console.log("Post request running at 3000")
